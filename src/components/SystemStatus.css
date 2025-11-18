@@ -1,20 +1,27 @@
-.status-box {
-    max-width: 400px;
-    margin: 0 auto 20px;
-    padding: 12px 20px;
-    border-radius: 15px;
-    background: #eef1f5;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  
-    box-shadow: 6px 6px 12px rgba(0,0,0,0.1),
-                -6px -6px 12px white;
-  }
-  
-  .status-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-  }
-  
+.status-bar {
+  background: #eef1f5;
+  padding: 12px 16px;
+  border-radius: 14px;
+  box-shadow: 6px 6px 14px rgba(0,0,0,0.12),
+              -6px -6px 14px white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.status-dot.online {
+  background: #2ecc71;
+}
+
+.status-dot.offline {
+  background: #e74c3c;
+}

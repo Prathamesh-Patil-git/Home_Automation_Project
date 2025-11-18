@@ -1,101 +1,185 @@
+/* ------------------------------------------------------------
+   Device Card (Neumorphic) - src/components/DeviceCard.css
+   ------------------------------------------------------------
+   Usage notes (React):
+   - Icon wrapper element should have class "device-icon".
+   - When device is ON:
+       * For bulb: add class "on" or "light-on" on the wrapper (both selectors work).
+       * For fan: add class "fan-on" on the wrapper AND add "spin" on the <FaFan /> icon element.
+   - Example JSX:
+       <div className={`device-icon ${on && icon === 'light' ? 'on' : ''} ${on && icon === 'fan' ? 'fan-on' : ''}`}>
+         {icon==='light' && <FaLightbulb />}
+         {icon==='fan'  && <FaFan className={on ? 'spin' : ''} />}
+       </div>
+   ------------------------------------------------------------ */
+
+/* Card container */
 .device-card {
   background: #eef1f5;
   padding: 16px;
   border-radius: 20px;
-  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.15),
-              -8px -8px 16px white;
+  box-shadow:
+    8px 8px 16px rgba(0, 0, 0, 0.15),
+    -8px -8px 16px #ffffff;
   display: flex;
   align-items: center;
   gap: 15px;
-  transition: 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
+/* Slight lift on hover */
 .device-card:hover {
   transform: translateY(-3px);
 }
 
-/* ICON WRAPPER */
+/* Icon wrapper (circle) */
 .device-icon {
-  font-size: 32px;
+  font-size: 32px;               /* icon size */
   padding: 12px;
   border-radius: 50%;
   background: #eef1f5;
-  box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.15),
-              inset -6px -6px 12px white;
-  transition: 0.3s ease-in-out;
+  box-shadow:
+    inset 6px 6px 12px rgba(0, 0, 0, 0.15),
+    inset -6px -6px 12px #ffffff;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease, color 0.25s ease;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
-/* 🔥 BULB GLOW WHEN ON */
-.light-on {
-  color: #ffcc00 !important;
-  filter: drop-shadow(0px 0px 5px #ffcc00);
-  transform: scale(1.15);
+/* ---------- Light bulb ON (glow) ---------- */
+/* Use .on or .light-on on the wrapper to enable bulb glow */
+.device-icon.on,
+.device-icon.light-on {
+  transform: scale(1.12);
+  box-shadow:
+    0 0 18px rgba(255, 204, 51, 0.45),     /* outer glow */
+    inset 3px 3px 8px rgba(0,0,0,0.06),
+    inset -3px -3px 8px #fff;
 }
 
-/* 🔵 FAN GLOW WHEN ON */
-.fan-on {
-  color: #00aaff !important;
-  filter: drop-shadow(0px 0px 8px #00aaff);
+/* Color + glow effect for the <FaLightbulb /> itself */
+/* If you add class .bulb-on on the icon element this will also apply. */
+.bulb-on,
+.device-icon.on svg,
+.device-icon.light-on svg {
+  color: #ffcc00 !important;                   /* yellow */
+  filter: drop-shadow(0 0 10px rgba(255,204,51,0.6));
+  transition: color 0.25s ease, filter 0.25s ease;
 }
 
-/* 🔄 FAN SPIN */
-.fan-spin {
-  animation: rotateFan 1s linear infinite;
+/* When OFF, keep icon muted */
+.device-icon svg {
+  color: #333; /* default icon color */
+  opacity: 0.9;
+  transition: color 0.25s ease, opacity 0.25s ease;
 }
 
+/* ---------- Fan ON (blue + spin) ---------- */
+/* Add .fan-on on wrapper to change icon color; add .spin on the <FaFan /> element to rotate it. */
+.device-icon.fan-on {
+  transform: scale(1.08);
+  box-shadow:
+    0 0 16px rgba(0, 167, 255, 0.28),
+    inset 3px 3px 8px rgba(0,0,0,0.06),
+    inset -3px -3px 8px #fff;
+}
+
+.fan-on,
+.device-icon.fan-on svg {
+  color: #00aaff !important;                  /* sky-blue */
+  filter: drop-shadow(0 0 8px rgba(0,167,255,0.45));
+  transition: color 0.25s ease, filter 0.25s ease;
+}
+
+/* Spin animation applied only to the icon element (so the wrapper doesn't rotate) */
+.spin {
+  display: inline-block;  /* ensure transform works */
+  animation: rotateFan 0.9s linear infinite;
+  transform-origin: center center;
+}
+
+/* gentle rotate keyframes */
 @keyframes rotateFan {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to   { transform: rotate(360deg); }
 }
 
-/* DEVICE TEXT */
+/* ---------- Text (device name + id) ---------- */
 .device-info h3 {
   margin: 0;
   font-size: 18px;
   font-weight: 600;
+  color: #1a1a1a;
 }
 
 .device-info p {
-  margin: 4px 0;
+  margin: 4px 0 0 0;
   font-size: 12px;
-  color: gray;
+  color: #7b7b7b;
 }
 
-/* BUTTONS */
+/* ---------- Controls (buttons) ---------- */
 .controls {
   margin-left: auto;
   display: flex;
   gap: 12px;
+  align-items: center;
 }
 
+/* base button */
 .btn {
   padding: 8px 18px;
   border-radius: 10px;
   border: none;
   font-weight: 600;
   cursor: pointer;
-  opacity: 0.55;
-  transition: all 0.3s ease-in-out;
-  transform: scale(1);
+  opacity: 0.65;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  background: transparent;
 }
 
-/* ON button active */
+/* active states */
 .on-btn.active {
   background: #2ecc71;
   color: white;
   opacity: 1;
-  transform: scale(1.05);
-  box-shadow: 0 4px 10px rgba(46, 204, 113, 0.4);
+  box-shadow: 0 6px 16px rgba(46,204,113,0.22);
+  transform: translateY(-2px);
 }
 
-/* OFF button active */
 .off-btn.active {
   background: #e74c3c;
   color: white;
   opacity: 1;
-  transform: scale(1.05);
-  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+  box-shadow: 0 6px 16px rgba(231,76,60,0.22);
+  transform: translateY(-2px);
+}
+
+/* keyboard / focus accessibility */
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.04);
+}
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 420px) {
+  .device-card {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .device-icon {
+    font-size: 28px;
+    padding: 10px;
+  }
+
+  .device-info h3 {
+    font-size: 16px;
+  }
+
+  .btn {
+    padding: 7px 12px;
+    font-size: 14px;
+  }
 }
