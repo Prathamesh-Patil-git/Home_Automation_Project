@@ -1,92 +1,101 @@
-/* Card Container */
 .device-card {
   background: #eef1f5;
   padding: 16px;
   border-radius: 20px;
-  box-shadow: 8px 8px 16px rgba(0,0,0,0.1),
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.15),
               -8px -8px 16px white;
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-bottom: 15px;
+  transition: 0.25s ease;
 }
 
-/* Icon Circle */
+.device-card:hover {
+  transform: translateY(-3px);
+}
+
+/* ICON WRAPPER */
 .device-icon {
-  font-size: 28px;
+  font-size: 32px;
   padding: 12px;
   border-radius: 50%;
   background: #eef1f5;
-  box-shadow: inset 6px 6px 12px rgba(0,0,0,0.15),
+  box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.15),
               inset -6px -6px 12px white;
+  transition: 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Text */
+/* 🔥 BULB GLOW WHEN ON */
+.light-on {
+  color: #ffcc00 !important;
+  filter: drop-shadow(0px 0px 5px #ffcc00);
+  transform: scale(1.15);
+}
+
+/* 🔵 FAN GLOW WHEN ON */
+.fan-on {
+  color: #00aaff !important;
+  filter: drop-shadow(0px 0px 8px #00aaff);
+}
+
+/* 🔄 FAN SPIN */
+.fan-spin {
+  animation: rotateFan 1s linear infinite;
+}
+
+@keyframes rotateFan {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* DEVICE TEXT */
 .device-info h3 {
   margin: 0;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 600;
 }
 
 .device-info p {
-  margin: 3px 0;
+  margin: 4px 0;
   font-size: 12px;
   color: gray;
 }
 
-/* Buttons Row */
+/* BUTTONS */
 .controls {
   margin-left: auto;
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
-/* Buttons */
 .btn {
-  padding: 8px 15px;
+  padding: 8px 18px;
   border-radius: 10px;
   border: none;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  opacity: 0.5;
-  transition: 0.25s;
+  opacity: 0.55;
+  transition: all 0.3s ease-in-out;
+  transform: scale(1);
 }
 
-/* ON Active */
+/* ON button active */
 .on-btn.active {
   background: #2ecc71;
   color: white;
   opacity: 1;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(46, 204, 113, 0.4);
 }
 
-/* OFF Active */
+/* OFF button active */
 .off-btn.active {
   background: #e74c3c;
   color: white;
   opacity: 1;
-}
-
-/* ---------- ANIMATIONS ---------- */
-
-/* Fan ON Color */
-.fan-on {
-  color: #00aaff; /* Sky Blue */
-  transition: color 0.3s ease;
-}
-
-/* Fan Rotation */
-.spin {
-  animation: spin 1.2s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Light ON Glow */
-.light-on {
-  color: #ffcc00;
-  text-shadow: 0 0 8px #ffdb4d;
-  transition: 0.3s;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
 }

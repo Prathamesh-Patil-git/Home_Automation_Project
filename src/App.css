@@ -1,3 +1,8 @@
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+
 .app-container {
   max-width: 420px;
   margin: 0 auto;
@@ -41,4 +46,9 @@
   .home-icon {
     font-size: 30px;
   }
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }

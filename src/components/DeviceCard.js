@@ -7,24 +7,28 @@ export default function DeviceCard({ id, name, icon }) {
 
   return (
     <div className="device-card">
-      {/* Icon Section */}
-      <div className="device-icon">
-        {icon === "light" && (
-          <FaLightbulb className={on ? "light-on" : ""} />
+      
+      {/* ICON SECTION */}
+      <div className={`device-icon 
+          ${on && icon === "light" ? "light-on" : ""} 
+          ${on && icon === "fan" ? "fan-on" : ""}`}>
+        
+        {icon === "light" && <FaLightbulb />}
+        
+        {icon === "fan" && (
+          <FaFan className={on ? "fan-spin" : ""} />
         )}
 
-        {icon === "fan" && (
-          <FaFan className={on ? "spin fan-on" : ""} />
-        )}
       </div>
 
-      {/* Device Text */}
+
+      {/* TEXT INFO */}
       <div className="device-info">
         <h3>{name}</h3>
         <p>ID: {id}</p>
       </div>
 
-      {/* Controls */}
+      {/* BUTTONS */}
       <div className="controls">
         <button
           className={`btn on-btn ${on ? "active" : ""}`}
@@ -40,6 +44,7 @@ export default function DeviceCard({ id, name, icon }) {
           OFF
         </button>
       </div>
+
     </div>
   );
 }
