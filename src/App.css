@@ -39,15 +39,16 @@ body {
 .header-content {
   display: flex;
   align-items: center;
-  gap: 14px;
+  justify-content: center; 
+  gap: 12px;
 }
 
-/* HOME ICON */
 .home-icon {
-  font-size: 36px;
+  font-size: 34px;
   color: #ff8c2f;
-  transition: 0.3s;
+  margin-top: -4px; /* small vertical adjustment */
 }
+
 
 /* TITLE TEXT */
 .app-title {

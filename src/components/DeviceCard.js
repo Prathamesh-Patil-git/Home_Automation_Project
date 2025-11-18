@@ -61,8 +61,8 @@ export default function DeviceCard({ id, name, icon, online, socket }) {
       {/* INFO */}
       <div className="device-info">
         <h3>{name}</h3>
-        <p>ID: {id}</p>
       </div>
+
 
       {/* BUTTONS */}
       <div className="controls">

@@ -30,7 +30,6 @@ function App() {
     };
 
     setSocket(ws);
-
     return () => ws.close();
   }, []);
 
@@ -50,9 +49,6 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // ------------------------------------------
-  // DEVICE LIST
-  // ------------------------------------------
   const devices = [
     { id: "light1", name: "Light 1", icon: "light" },
     { id: "fan", name: "Fan", icon: "fan" },
@@ -62,16 +58,17 @@ function App() {
 
   return (
     <div className="app-container">
-      {/* HEADER */}
+
+      {/* FIXED HEADER */}
       <header className="app-header">
-        <FaHome className="home-icon" />
-        <h1 className="app-title">Home Automation</h1>
+        <div className="header-content">
+          <FaHome className="home-icon" />
+          <h1 className="app-title">Home Automation</h1>
+        </div>
       </header>
 
-      {/* SYSTEM STATUS */}
       <SystemStatus online={online} />
 
-      {/* DEVICE CARDS */}
       <div className="device-list">
         {devices.map((d) => (
           <DeviceCard
@@ -80,7 +77,7 @@ function App() {
             name={d.name}
             icon={d.icon}
             online={online}
-            socket={socket}        // <- IMPORTANT
+            socket={socket}
           />
         ))}
       </div>
