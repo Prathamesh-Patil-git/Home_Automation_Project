@@ -1,0 +1,92 @@
+/* Card Container */
+.device-card {
+  background: #eef1f5;
+  padding: 16px;
+  border-radius: 20px;
+  box-shadow: 8px 8px 16px rgba(0,0,0,0.1),
+              -8px -8px 16px white;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+/* Icon Circle */
+.device-icon {
+  font-size: 28px;
+  padding: 12px;
+  border-radius: 50%;
+  background: #eef1f5;
+  box-shadow: inset 6px 6px 12px rgba(0,0,0,0.15),
+              inset -6px -6px 12px white;
+}
+
+/* Text */
+.device-info h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.device-info p {
+  margin: 3px 0;
+  font-size: 12px;
+  color: gray;
+}
+
+/* Buttons Row */
+.controls {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+
+/* Buttons */
+.btn {
+  padding: 8px 15px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: 0.25s;
+}
+
+/* ON Active */
+.on-btn.active {
+  background: #2ecc71;
+  color: white;
+  opacity: 1;
+}
+
+/* OFF Active */
+.off-btn.active {
+  background: #e74c3c;
+  color: white;
+  opacity: 1;
+}
+
+/* ---------- ANIMATIONS ---------- */
+
+/* Fan ON Color */
+.fan-on {
+  color: #00aaff; /* Sky Blue */
+  transition: color 0.3s ease;
+}
+
+/* Fan Rotation */
+.spin {
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Light ON Glow */
+.light-on {
+  color: #ffcc00;
+  text-shadow: 0 0 8px #ffdb4d;
+  transition: 0.3s;
+}

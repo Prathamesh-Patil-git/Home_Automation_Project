@@ -1,0 +1,20 @@
+.status-box {
+    max-width: 400px;
+    margin: 0 auto 20px;
+    padding: 12px 20px;
+    border-radius: 15px;
+    background: #eef1f5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    box-shadow: 6px 6px 12px rgba(0,0,0,0.1),
+                -6px -6px 12px white;
+  }
+  
+  .status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  
