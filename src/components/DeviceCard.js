@@ -7,16 +7,12 @@ const API = "https://home-automation-server-fl7d.onrender.com";
 export default function DeviceCard({ id, name, icon, online }) {
   const [on, setOn] = useState(false);
 
-  // Handle ON / OFF
   const handleToggle = async (state) => {
-    if (!online) return; // cannot send when backend offline
+    if (!online) return;
 
     try {
-      await fetch(`${API}/${id}/${state}`, {
-        method: "POST",
-      });
-
-      setOn(state === "on"); // UI update
+      await fetch(`${API}/${id}/${state}`); // <-- FIXED (GET request)
+      setOn(state === "on");
     } catch (err) {
       console.log("Error sending command:", err);
     }
@@ -24,8 +20,6 @@ export default function DeviceCard({ id, name, icon, online }) {
 
   return (
     <div className="device-card">
-      
-      {/* Device Icon */}
       <div
         className={`device-icon ${on ? "on" : ""} ${
           icon === "fan" && on ? "fan-on" : ""
@@ -35,12 +29,10 @@ export default function DeviceCard({ id, name, icon, online }) {
         {icon === "fan" && <FaFan className={on ? "spin" : ""} />}
       </div>
 
-      {/* Text */}
       <div className="device-info">
         <h3>{name}</h3>
       </div>
 
-      {/* Buttons */}
       <div className="controls">
         <button
           className={`btn on-btn ${on ? "active" : ""}`}
@@ -56,7 +48,6 @@ export default function DeviceCard({ id, name, icon, online }) {
           OFF
         </button>
       </div>
-
     </div>
   );
 }
