@@ -1,54 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaLightbulb, FaFan } from "react-icons/fa";
 import "./DeviceCard.css";
 
-export default function DeviceCard({ id, name, icon, online, socket }) {
+const API = "https://home-automation-server-fl7d.onrender.com";
+
+export default function DeviceCard({ id, name, icon, online }) {
   const [on, setOn] = useState(false);
 
-  // Receive real-time updates from WebSocket
-  useEffect(() => {
-    if (!socket) return;
+  // Handle ON / OFF
+  const handleToggle = async (state) => {
+    if (!online) return; // cannot send when backend offline
 
-    socket.onmessage = (msg) => {
-      try {
-        const data = JSON.parse(msg.data);
+    try {
+      await fetch(`${API}/${id}/${state}`, {
+        method: "POST",
+      });
 
-        // When backend broadcasts update
-        if (data.type === "update" && data.device === id) {
-          setOn(data.state === "on");
-        }
-
-        // When backend sends initial state
-        if (data.type === "init" && data.devices[id]) {
-          setOn(data.devices[id] === "on");
-        }
-
-      } catch (error) {
-        console.log("Invalid WS message:", error);
-      }
-    };
-  }, [socket, id]);
-
-  // Send ON/OFF command via WebSocket
-  const handleToggle = (state) => {
-    if (!online) return;
-
-    if (socket && socket.readyState === WebSocket.OPEN) {
-      socket.send(
-        JSON.stringify({
-          type: "set",
-          device: id,
-          state: state,
-        })
-      );
+      setOn(state === "on"); // UI update
+    } catch (err) {
+      console.log("Error sending command:", err);
     }
-
-    setOn(state === "on"); // instant UI update
   };
 
   return (
     <div className="device-card">
-      {/* ICON */}
+      
+      {/* Device Icon */}
       <div
         className={`device-icon ${on ? "on" : ""} ${
           icon === "fan" && on ? "fan-on" : ""
@@ -58,13 +35,12 @@ export default function DeviceCard({ id, name, icon, online, socket }) {
         {icon === "fan" && <FaFan className={on ? "spin" : ""} />}
       </div>
 
-      {/* INFO */}
+      {/* Text */}
       <div className="device-info">
         <h3>{name}</h3>
       </div>
 
-
-      {/* BUTTONS */}
+      {/* Buttons */}
       <div className="controls">
         <button
           className={`btn on-btn ${on ? "active" : ""}`}
@@ -80,6 +56,7 @@ export default function DeviceCard({ id, name, icon, online, socket }) {
           OFF
         </button>
       </div>
+
     </div>
   );
 }
