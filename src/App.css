@@ -54,11 +54,12 @@ body {
 .app-title {
   font-size: 28px;
   font-weight: 700;
-  color: #1a1a1a;
-  letter-spacing: -0.5px;
-  white-space: nowrap;
-  transition: 0.3s;
+  background: linear-gradient(90deg, #ff8c2f, #30e43f, #0edaf5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
+
 
 /* MOBILE RESPONSIVE */
 @media (max-width: 480px) {
